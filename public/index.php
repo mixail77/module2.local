@@ -1,10 +1,14 @@
 <?php
 
 use Aura\SqlQuery\QueryFactory;
+use App\QueryBuilder;
 
 if (file_exists($_SERVER["DOCUMENT_ROOT"] . '/vendor/autoload.php')) {
     require_once($_SERVER["DOCUMENT_ROOT"] . '/vendor/autoload.php');
 }
+
+$db = new QueryBuilder();
+print_r($db);
 
 $queryFactory = new QueryFactory('mysql');
 $select = $queryFactory->newSelect();
