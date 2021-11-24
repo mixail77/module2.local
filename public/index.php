@@ -7,21 +7,28 @@ if (file_exists($_SERVER["DOCUMENT_ROOT"] . '/vendor/autoload.php')) {
     require_once($_SERVER["DOCUMENT_ROOT"] . '/vendor/autoload.php');
 }
 
-$db = new QueryBuilder();
-print_r($db);
+$query = new QueryFactory('mysql');
+$db = new QueryBuilder($query);
 
-$queryFactory = new QueryFactory('mysql');
-$select = $queryFactory->newSelect();
-$select->cols(['*']);
-$select->from('products');
+//Все товары
+//$arResult = $db->getAll('products');
 
-print_r($select->getStatement());
+//Один товар
+//$arResult = $db->getById('products', 20);
 
-$pdo = new PDO('mysql:host=localhost;dbname=module1;charset=utf8', 'admin', 'root');
-$sth = $pdo->prepare($select->getStatement());
-$sth->execute($select->getBindValues());
-$result = $sth->FetchAll(PDO::FETCH_ASSOC);
+//Удаление товара
+//$arResult = $db->delete('products', 25);
 
-echo '<pre>';
-print_r($result);
-echo '</pre>';
+//Добавление товара
+$arCreate = [
+    'TITLE' => 'NEW_PRODUCT',
+    'PRICE' => rand(100, 10000),
+];
+//$arResult = $db->create('products', $arCreate);
+
+//Обновление товара
+$arUpdate = [
+    'TITLE' => 'NEW_UPDATE',
+    'PRICE' => rand(100, 10000),
+];
+//$arResult = $db->update('products', 90, $arUpdate);

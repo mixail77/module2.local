@@ -2,27 +2,30 @@
 
 namespace App;
 
+use Aura\SqlQuery\QueryFactory;
 use PDO;
 
 class QueryBuilder
 {
 
     private $pdo;
+    private $query;
 
-    /**
-     * В конструкторе получаем настройки для подключения и подключаемся к MySQL
-     */
-    public function __construct()
+    public function __construct(QueryFactory $query)
     {
 
         $arConfig = self::getConfig();
 
         if (!empty($arConfig)) {
 
+            //PDO
             $this->pdo = new PDO("mysql:host={$arConfig['HOST']};dbname={$arConfig['NAME']};charset={$arConfig['CHARSET']}",
                 $arConfig['USER'],
                 $arConfig['PASSWORD']
             );
+
+            //QueryFactory
+            $this->query = $query;
 
         }
 
@@ -35,9 +38,16 @@ class QueryBuilder
             return false;
         }
 
-        $sql = "SELECT * FROM {$table}";
+        //Sql запрос
+        $select = $this->query->newSelect();
+        $select->cols(['*']);
+        $select->from($table);
 
+        //Подготавливаем запрос
+        $sql = $select->getStatement();
         $statement = $this->pdo->prepare($sql);
+
+        //Выполняем запрос
         $statement->execute();
 
         return $statement->fetchAll(PDO::FETCH_ASSOC);
@@ -51,11 +61,20 @@ class QueryBuilder
             return false;
         }
 
-        $sql = "SELECT * FROM {$table} WHERE id=:id";
+        //Sql запрос
+        $select = $this->query->newSelect();
+        $select->cols(['*']);
+        $select->from($table);
+        $select->where('ID = :ID');
+        $select->bindValue('ID', $id);
 
+        //Подготавливаем запрос
+        $sql = $select->getStatement();
         $statement = $this->pdo->prepare($sql);
-        $statement->bindValue(':id', $id);
-        $statement->execute();
+
+        //Выполняем запрос
+        $bind = $select->getBindValues();
+        $statement->execute($bind);
 
         return $statement->fetch(PDO::FETCH_ASSOC);
 
@@ -68,51 +87,49 @@ class QueryBuilder
             return false;
         }
 
-        //Строка с ключами
-        $key = implode(',', array_keys($arFields));
+        $arKeys = array_keys($arFields);
 
-        //Строка со значениями
-        $value = ':' . implode(',:', array_keys($arFields));
-
-        $sql = "INSERT INTO {$table} ({$key}) VALUE ({$value})";
+        //Sql запрос
+        $insert = $this->query->newInsert();
+        $insert->into($table);
+        $insert->cols($arKeys);
+        $insert->bindValues($arFields);
 
         //Подготавливаем запрос
+        $sql = $insert->getStatement();
         $statement = $this->pdo->prepare($sql);
 
         //Выполняем запрос
-        $statement->execute($arFields);
+        $bind = $insert->getBindValues();
+        $statement->execute($bind);
 
         return $this->pdo->lastInsertId();
 
     }
 
-    public function update($table, $arFields)
+    public function update($table, $id, $arFields)
     {
 
-        if (empty($table) || !is_array($arFields)) {
+        if (empty($table) || empty($id) || !is_array($arFields)) {
             return false;
         }
 
         $arKeys = array_keys($arFields);
 
-        $setStr = '';
-        foreach ($arKeys as $key) {
+        //Sql запрос
+        $update = $this->query->newUpdate();
+        $update->table($table);
+        $update->cols($arKeys);
+        $update->where('ID = :ID');
+        $update->bindValues(array_merge($arFields, ['ID' => $id]));
 
-            //Поле ID не обновляем, пропускаем в цикле
-            //При выполнении запроса, значение поля ID нам понадобится
-            if ($key == 'ID') {
-                continue;
-            }
-
-            $setStr .= $key . '=:' . $key . ',';
-
-        }
-        $setStr = rtrim($setStr, ',');
-
-        $sql = "UPDATE {$table} SET {$setStr} WHERE ID=:ID";
-
+        //Подготавливаем запрос
+        $sql = $update->getStatement();
         $statement = $this->pdo->prepare($sql);
-        $statement->execute($arFields);
+
+        //Выполняем запрос
+        $bind = $update->getBindValues();
+        $statement->execute($bind);
 
         return $statement->rowCount();
 
@@ -125,11 +142,19 @@ class QueryBuilder
             return false;
         }
 
-        $sql = "DELETE FROM {$table} WHERE id=:id";
+        //Sql запрос
+        $delete = $this->query->newDelete();
+        $delete->from($table);
+        $delete->where('ID = :ID');
+        $delete->bindValue('ID', $id);
 
+        //Подготавливаем запрос
+        $sql = $delete->getStatement();
         $statement = $this->pdo->prepare($sql);
-        $statement->bindValue(':id', $id);
-        $statement->execute();
+
+        //Выполняем запрос
+        $bind = $delete->getBindValues();
+        $statement->execute($bind);
 
         return $statement->rowCount();
 
@@ -138,11 +163,13 @@ class QueryBuilder
     public static function getConfig()
     {
 
-        if (!file_exists($_SERVER['DOCUMENT_ROOT'] . '/config/database.php')) {
-            return false;
-        }
-
-        return include $_SERVER['DOCUMENT_ROOT'] . '/config/database.php';
+        return [
+            'HOST' => 'localhost',
+            'NAME' => 'module1',
+            'USER' => 'admin',
+            'PASSWORD' => 'root',
+            'CHARSET' => 'utf8',
+        ];
 
     }
 
