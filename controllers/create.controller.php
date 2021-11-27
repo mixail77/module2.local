@@ -8,10 +8,11 @@ use League\Plates\Engine;
 $query = new QueryFactory('mysql');
 $db = new QueryBuilder($query);
 
-$db->create('products', [
+$arFields = [
     'TITLE' => 'Название товара',
     'PRICE' => rand(100, 10000),
-]);
+];
+//$db->create('products', $arFields);
 
 //Представление
 $templates = new Engine($_SERVER['DOCUMENT_ROOT'] . '/views');
