@@ -13,6 +13,8 @@ $this->layout('template', $arParams);
     <div class="row">
         <div class="col-8 offset-md-2">
 
+            <?= flash()->display() ?>
+
             <a href="/create.php" class="btn btn-success">Добавить товар</a>
 
             <table class="table">

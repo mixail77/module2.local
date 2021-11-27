@@ -10,6 +10,8 @@ $db = new QueryBuilder($query);
 
 $arResult = $db->getAll('products');
 
+flash()->message(['Message1', 'Message2'], 'error');
+
 //Представление
 $templates = new Engine($_SERVER['DOCUMENT_ROOT'] . '/views');
 

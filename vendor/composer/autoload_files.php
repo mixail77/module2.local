@@ -7,4 +7,5 @@ $baseDir = dirname($vendorDir);
 
 return array(
     '3917c79c5052b270641b5a200963dbc2' => $vendorDir . '/kint-php/kint/init.php',
+    '6157b075b923803e5ef157aeb43b83bd' => $vendorDir . '/tamtamchik/simple-flash/src/function.php',
 );
