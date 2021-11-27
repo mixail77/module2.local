@@ -1,0 +1,18 @@
+/* Список товаров */
+
+.container {
+    margin-top: 15px;
+}
+
+.table {
+    margin-top: 15px;
+}
+
+.table th,
+.table td {
+    vertical-align: middle;
+}
+
+.container label {
+    margin-top: 10px;
+}
