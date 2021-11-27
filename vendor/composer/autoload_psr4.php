@@ -7,6 +7,7 @@ $baseDir = dirname($vendorDir);
 
 return array(
     'League\\Plates\\' => array($vendorDir . '/league/plates/src'),
+    'Kint\\' => array($vendorDir . '/kint-php/kint/src'),
     'Aura\\SqlQuery\\' => array($vendorDir . '/aura/sqlquery/src'),
     'App\\' => array($baseDir . '/app'),
 );
