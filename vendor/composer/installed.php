@@ -46,6 +46,15 @@
             'reference' => '6d3ee31199b536a4e003b34a356ca20f6f75496a',
             'dev_requirement' => false,
         ),
+        'nikic/fast-route' => array(
+            'pretty_version' => 'v1.3.0',
+            'version' => '1.3.0.0',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../nikic/fast-route',
+            'aliases' => array(),
+            'reference' => '181d480e08d9476e61381e04a71b34dc0432e812',
+            'dev_requirement' => false,
+        ),
         'tamtamchik/simple-flash' => array(
             'pretty_version' => '2.0.1',
             'version' => '2.0.1.0',

@@ -15,7 +15,7 @@ $this->layout('template', $arParams);
 
             <?= flash()->display() ?>
 
-            <a href="/create.php" class="btn btn-success">Добавить товар</a>
+            <a href="/create/" class="btn btn-success">Добавить товар</a>
 
             <table class="table">
                 <thead>
@@ -31,11 +31,11 @@ $this->layout('template', $arParams);
                         <tr>
                             <th scope="row"><?= $product['ID'] ?></th>
                             <td>
-                                <a href="show.php?id=<?= $product['ID'] ?>"><?= $product['TITLE'] ?></a> - <?= $product['PRICE'] ?>
+                                <a href="show/<?= $product['ID'] ?>/"><?= $product['TITLE'] ?></a> - <?= $product['PRICE'] ?>
                             </td>
                             <td>
-                                <a href="edit.php?id=<?= $product['ID'] ?>" class="btn btn-warning">Редактировать</a>
-                                <a href="delete.php?id=<?= $product['ID'] ?>" class="btn btn-danger">Удалить</a>
+                                <a href="edit/<?= $product['ID'] ?>/" class="btn btn-warning">Редактировать</a>
+                                <a href="delete/<?= $product['ID'] ?>/" class="btn btn-danger">Удалить</a>
                             </td>
                         </tr>
                     <? endforeach; ?>

@@ -13,7 +13,7 @@ $this->layout('template', $arParams);
     <div class="row">
         <div class="col-8 offset-md-2">
 
-            <form action="/edit.php" method="POST">
+            <form action="/edit/<?= $products['ID'] ?>/" method="POST">
                 <input type="hidden" value="<?= $products['ID'] ?>">
                 <div class="mb-3">
                     <label for="title" class="form-label">Название товара</label>
