@@ -5,6 +5,11 @@ namespace App;
 class Validator
 {
 
+    /**
+     * Проверяет входящий параметр или массив параметров на пустоту
+     * @param $arValue
+     * @return bool
+     */
     public function isNotEmpty($arValue)
     {
 
@@ -30,6 +35,11 @@ class Validator
 
     }
 
+    /**
+     * Проверяет входящий параметр или массив параметров на число
+     * @param $arValue
+     * @return bool
+     */
     public function isNumeric($arValue)
     {
 

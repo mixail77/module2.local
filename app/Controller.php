@@ -39,7 +39,7 @@ class Controller
     {
 
         echo $this->template->render('index.view', [
-                'products' => $this->db->getAll('products')]
+            'products' => $this->db->getAll('products')]
         );
 
     }
@@ -52,7 +52,7 @@ class Controller
     {
 
         echo $this->template->render('show.view', [
-                'products' => $this->db->getById('products', $vars['id'])]
+            'products' => $this->db->getById('products', $vars['id'])]
         );
 
     }
@@ -106,7 +106,7 @@ class Controller
     {
 
         echo $this->template->render('edit.view', [
-                'products' => $this->db->getById('products', $vars['id'])]
+            'products' => $this->db->getById('products', $vars['id'])]
         );
 
     }

@@ -31,6 +31,11 @@ class QueryBuilder
 
     }
 
+    /**
+     * Получает все записи из таблицы
+     * @param $table
+     * @return array|false
+     */
     public function getAll($table)
     {
 
@@ -54,6 +59,12 @@ class QueryBuilder
 
     }
 
+    /**
+     * Получает запись из таблицы по ID
+     * @param $table
+     * @param $id
+     * @return false|mixed
+     */
     public function getById($table, $id)
     {
 
@@ -80,6 +91,12 @@ class QueryBuilder
 
     }
 
+    /**
+     * Добавляет новую запись в таблицу
+     * @param $table
+     * @param $arFields
+     * @return false|string
+     */
     public function create($table, $arFields)
     {
 
@@ -107,6 +124,13 @@ class QueryBuilder
 
     }
 
+    /**
+     * Обновляет запись в таблице по ID
+     * @param $table
+     * @param $id
+     * @param $arFields
+     * @return false|int
+     */
     public function update($table, $id, $arFields)
     {
 
@@ -135,6 +159,12 @@ class QueryBuilder
 
     }
 
+    /**
+     * Удаляет запись из таблицы по ID
+     * @param $table
+     * @param $id
+     * @return false|int
+     */
     public function delete($table, $id)
     {
 
@@ -160,6 +190,10 @@ class QueryBuilder
 
     }
 
+    /**
+     * Возвращает настройки для подключения к MySQL
+     * @return string[]
+     */
     public static function getConfig()
     {
 

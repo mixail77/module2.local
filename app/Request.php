@@ -18,6 +18,11 @@ class Request
 
     }
 
+    /**
+     * Возвращает безопасное значение из POST массива по ключу
+     * @param $key
+     * @return string
+     */
     public function getPost($key)
     {
 
@@ -27,6 +32,11 @@ class Request
 
     }
 
+    /**
+     * Возвращает безопасное значение из GET массива по ключу
+     * @param $key
+     * @return string
+     */
     public function getQuery($key)
     {
 

@@ -1,7 +1,7 @@
 <?php
 
 $arParams = [
-    'title' => 'Все товары',
+    'title' => 'Каталог товаров',
 ];
 
 //Шаблон
@@ -12,8 +12,6 @@ $this->layout('template', $arParams);
 <div class="container">
     <div class="row">
         <div class="col-8 offset-md-2">
-
-            <?= flash()->display() ?>
 
             <a href="/create/" class="btn btn-success">Добавить товар</a>
 

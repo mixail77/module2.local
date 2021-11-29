@@ -1,5 +1,7 @@
 <?php
 
+use Tamtamchik\SimpleFlash\Flash;
+
 $arParams = [
     'title' => 'Редактировать товар',
 ];
@@ -12,6 +14,8 @@ $this->layout('template', $arParams);
 <div class="container">
     <div class="row">
         <div class="col-8 offset-md-2">
+
+            <?= Flash::display() ?>
 
             <form action="/edit/<?= $products['ID'] ?>/" method="POST">
                 <input type="hidden" value="<?= $products['ID'] ?>">
