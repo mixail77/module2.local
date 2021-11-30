@@ -29,6 +29,14 @@ class ComposerStaticInitb97d957ad4b57f38bf5e6f21fbefc062
         array (
             'FastRoute\\' => 10,
         ),
+        'D' => 
+        array (
+            'Delight\\Http\\' => 13,
+            'Delight\\Db\\' => 11,
+            'Delight\\Cookie\\' => 15,
+            'Delight\\Base64\\' => 15,
+            'Delight\\Auth\\' => 13,
+        ),
         'A' => 
         array (
             'Aura\\SqlQuery\\' => 14,
@@ -52,6 +60,26 @@ class ComposerStaticInitb97d957ad4b57f38bf5e6f21fbefc062
         'FastRoute\\' => 
         array (
             0 => __DIR__ . '/..' . '/nikic/fast-route/src',
+        ),
+        'Delight\\Http\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/delight-im/http/src',
+        ),
+        'Delight\\Db\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/delight-im/db/src',
+        ),
+        'Delight\\Cookie\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/delight-im/cookie/src',
+        ),
+        'Delight\\Base64\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/delight-im/base64/src',
+        ),
+        'Delight\\Auth\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/delight-im/auth/src',
         ),
         'Aura\\SqlQuery\\' => 
         array (
