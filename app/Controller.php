@@ -5,6 +5,8 @@ namespace App;
 use App\Request;
 use App\Validator;
 use App\QueryBuilder;
+use App\Exception\ExceptionAddProduct;
+use App\Exception\ExceptionEditProduct;
 use Aura\SqlQuery\QueryFactory;
 use League\Plates\Engine;
 use Tamtamchik\SimpleFlash\Flash;
@@ -39,8 +41,8 @@ class Controller
     {
 
         echo $this->template->render('index.view', [
-            'products' => $this->db->getAll('products')]
-        );
+            'products' => $this->db->getAll('products'),
+        ]);
 
     }
 
@@ -52,8 +54,8 @@ class Controller
     {
 
         echo $this->template->render('show.view', [
-            'products' => $this->db->getById('products', $vars['id'])]
-        );
+            'products' => $this->db->getById('products', $vars['id']),
+        ]);
 
     }
 
@@ -83,14 +85,22 @@ class Controller
             'PRICE' => $price,
         ];
 
-        if ($this->validator->isNotEmpty($title) && $this->validator->isNumeric($price)) {
+        try {
 
-            $this->db->create('products', $arFields);
-            $this->redirectTo('/');
+            if ($this->validator->isNotEmpty($title) && $this->validator->isNumeric($price)) {
+
+                $this->db->create('products', $arFields);
+                $this->redirectTo('/');
+
+            }
+
+            throw new ExceptionAddProduct('Неверно заполнены поля товара!');
+
+        } catch (ExceptionAddProduct $exception) {
+
+            $this->flash->error($exception->getMessage());
 
         }
-
-        Flash::message('Неверно заполнены поля товара!', 'error');
 
         echo $this->template->render('create.view', [
             'products' => $arFields,
@@ -106,8 +116,8 @@ class Controller
     {
 
         echo $this->template->render('edit.view', [
-            'products' => $this->db->getById('products', $vars['id'])]
-        );
+            'products' => $this->db->getById('products', $vars['id']),
+        ]);
 
     }
 
@@ -126,14 +136,22 @@ class Controller
             'PRICE' => $price,
         ];
 
-        if ($this->validator->isNotEmpty($title) && $this->validator->isNumeric($price)) {
+        try {
 
-            $this->db->update('products', $vars['id'], $arFields);
-            $this->redirectTo('/');
+            if ($this->validator->isNotEmpty($title) && $this->validator->isNumeric($price)) {
+
+                $this->db->update('products', $vars['id'], $arFields);
+                $this->redirectTo('/');
+
+            }
+
+            throw new ExceptionEditProduct('Неверно заполнены поля товара!');
+
+        } catch (ExceptionEditProduct $exception) {
+
+            $this->flash->error($exception->getMessage());
 
         }
-
-        Flash::message('Неверно заполнены поля товара!', 'error');
 
         echo $this->template->render('edit.view', [
             'products' => $arFields,
