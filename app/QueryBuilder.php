@@ -11,23 +11,11 @@ class QueryBuilder
     private $pdo;
     private $query;
 
-    public function __construct(QueryFactory $query)
+    public function __construct(PDO $pdo, QueryFactory $queryFactory)
     {
 
-        $arConfig = self::getConfig();
-
-        if (!empty($arConfig)) {
-
-            //PDO
-            $this->pdo = new PDO("mysql:host={$arConfig['HOST']};dbname={$arConfig['NAME']};charset={$arConfig['CHARSET']}",
-                $arConfig['USER'],
-                $arConfig['PASSWORD']
-            );
-
-            //QueryFactory
-            $this->query = $query;
-
-        }
+        $this->pdo = $pdo;
+        $this->query = $queryFactory;
 
     }
 
@@ -187,23 +175,6 @@ class QueryBuilder
         $statement->execute($bind);
 
         return $statement->rowCount();
-
-    }
-
-    /**
-     * Возвращает настройки для подключения к MySQL
-     * @return string[]
-     */
-    public static function getConfig()
-    {
-
-        return [
-            'HOST' => 'localhost',
-            'NAME' => 'module1',
-            'USER' => 'admin',
-            'PASSWORD' => 'root',
-            'CHARSET' => 'utf8',
-        ];
 
     }
 

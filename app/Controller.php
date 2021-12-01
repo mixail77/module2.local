@@ -5,39 +5,45 @@ namespace App;
 use App\Request;
 use App\Validator;
 use App\QueryBuilder;
-use App\Exception\ExceptionAddProduct;
-use App\Exception\ExceptionEditProduct;
-use Aura\SqlQuery\QueryFactory;
 use League\Plates\Engine;
 use Tamtamchik\SimpleFlash\Flash;
+use App\Redirect;
+use App\exception\ExceptionAddProduct;
+use App\exception\ExceptionEditProduct;
 
 class Controller
 {
 
     private $db;
-    private $query;
     private $template;
     private $flash;
     private $request;
     private $validator;
+    private $redirect;
 
-    public function __construct()
+    public function __construct(
+        Request      $request,
+        Validator    $validator,
+        QueryBuilder $queryBuilder,
+        Engine       $engine,
+        Flash        $flash,
+        Redirect     $redirect
+    )
     {
 
-        $this->request = new Request();
-        $this->validator = new Validator();
-        $this->query = new QueryFactory('mysql');
-        $this->db = new QueryBuilder($this->query);
-        $this->flash = new Flash();
-        $this->template = new Engine($_SERVER['DOCUMENT_ROOT'] . '/app/Views');
+        $this->request = $request;
+        $this->validator = $validator;
+        $this->db = $queryBuilder;
+        $this->template = $engine;
+        $this->flash = $flash;
+        $this->redirect = $redirect;
 
     }
 
     /**
      * Выводит все товары
-     * @param $vars
      */
-    public function index($vars)
+    public function index()
     {
 
         echo $this->template->render('index.view', [
@@ -61,9 +67,8 @@ class Controller
 
     /**
      * Выводит форму добавления товара
-     * @param $vars
      */
-    public function create($vars)
+    public function create()
     {
 
         echo $this->template->render('create.view', []);
@@ -72,9 +77,8 @@ class Controller
 
     /**
      * Добавляет новый товар
-     * @param $vars
      */
-    public function addProduct($vars)
+    public function addProduct()
     {
 
         $title = $this->request->getPost('title');
@@ -90,11 +94,11 @@ class Controller
             if ($this->validator->isNotEmpty($title) && $this->validator->isNumeric($price)) {
 
                 $this->db->create('products', $arFields);
-                $this->redirectTo('/');
+                $this->redirect->redirectTo('/');
 
             }
 
-            throw new ExceptionAddProduct('Неверно заполнены поля товара!');
+            throw new ExceptionAddProduct('Product fields are filled in incorrect!');
 
         } catch (ExceptionAddProduct $exception) {
 
@@ -141,17 +145,19 @@ class Controller
             if ($this->validator->isNotEmpty($title) && $this->validator->isNumeric($price)) {
 
                 $this->db->update('products', $vars['id'], $arFields);
-                $this->redirectTo('/');
+                $this->redirect->redirectTo('/');
 
             }
 
-            throw new ExceptionEditProduct('Неверно заполнены поля товара!');
+            throw new ExceptionEditProduct('Product fields are filled in incorrect!');
 
         } catch (ExceptionEditProduct $exception) {
 
             $this->flash->error($exception->getMessage());
 
         }
+
+        $arFields['ID'] = $vars['id'];
 
         echo $this->template->render('edit.view', [
             'products' => $arFields,
@@ -167,7 +173,7 @@ class Controller
     {
 
         $this->db->delete('products', $vars['id']);
-        $this->redirectTo('/');
+        $this->redirect->redirectTo('/');
 
     }
 
@@ -178,18 +184,6 @@ class Controller
     {
 
         echo $this->template->render('404.view', []);
-
-    }
-
-    /**
-     * Выполняет редирект на страницу
-     * @param $url
-     */
-    public function redirectTo($url)
-    {
-
-        header('Location: ' . $url);
-        exit();
 
     }
 

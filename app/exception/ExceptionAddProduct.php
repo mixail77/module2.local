@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Exception;
+namespace App\exception;
 
 class ExceptionAddProduct extends \Exception
 {

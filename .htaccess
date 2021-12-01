@@ -5,4 +5,3 @@ Options -Indexes
 
     RewriteRule ^(.*)$ /public/index.php [L]
 </IfModule>
-

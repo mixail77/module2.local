@@ -9,6 +9,8 @@ $arParams = [
 //Шаблон
 $this->layout('template', $arParams);
 
+d($products);
+
 ?>
 
 <div class="container">
