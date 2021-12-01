@@ -29,7 +29,7 @@ class Controller
         $this->query = new QueryFactory('mysql');
         $this->db = new QueryBuilder($this->query);
         $this->flash = new Flash();
-        $this->template = new Engine($_SERVER['DOCUMENT_ROOT'] . '/app/views');
+        $this->template = new Engine($_SERVER['DOCUMENT_ROOT'] . '/app/Views');
 
     }
 

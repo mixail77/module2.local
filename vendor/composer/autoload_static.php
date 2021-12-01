@@ -7,15 +7,30 @@ namespace Composer\Autoload;
 class ComposerStaticInitb97d957ad4b57f38bf5e6f21fbefc062
 {
     public static $files = array (
+        '538ca81a9a966a6716601ecf48f4eaef' => __DIR__ . '/..' . '/opis/closure/functions.php',
         '3917c79c5052b270641b5a200963dbc2' => __DIR__ . '/..' . '/kint-php/kint/init.php',
         '253c157292f75eb38082b5acb06f3f01' => __DIR__ . '/..' . '/nikic/fast-route/src/functions.php',
+        'b33e3d135e5d9e47d845c576147bda89' => __DIR__ . '/..' . '/php-di/php-di/src/functions.php',
         '6157b075b923803e5ef157aeb43b83bd' => __DIR__ . '/..' . '/tamtamchik/simple-flash/src/function.php',
     );
 
     public static $prefixLengthsPsr4 = array (
+        'V' => 
+        array (
+            'Valitron\\' => 9,
+        ),
         'T' => 
         array (
             'Tamtamchik\\SimpleFlash\\' => 23,
+        ),
+        'P' => 
+        array (
+            'Psr\\Container\\' => 14,
+            'PhpDocReader\\' => 13,
+        ),
+        'O' => 
+        array (
+            'Opis\\Closure\\' => 13,
         ),
         'L' => 
         array (
@@ -25,9 +40,14 @@ class ComposerStaticInitb97d957ad4b57f38bf5e6f21fbefc062
         array (
             'Kint\\' => 5,
         ),
+        'I' => 
+        array (
+            'Invoker\\' => 8,
+        ),
         'F' => 
         array (
             'FastRoute\\' => 10,
+            'Faker\\' => 6,
         ),
         'D' => 
         array (
@@ -36,6 +56,7 @@ class ComposerStaticInitb97d957ad4b57f38bf5e6f21fbefc062
             'Delight\\Cookie\\' => 15,
             'Delight\\Base64\\' => 15,
             'Delight\\Auth\\' => 13,
+            'DI\\' => 3,
         ),
         'A' => 
         array (
@@ -45,9 +66,25 @@ class ComposerStaticInitb97d957ad4b57f38bf5e6f21fbefc062
     );
 
     public static $prefixDirsPsr4 = array (
+        'Valitron\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/vlucas/valitron/src/Valitron',
+        ),
         'Tamtamchik\\SimpleFlash\\' => 
         array (
             0 => __DIR__ . '/..' . '/tamtamchik/simple-flash/src',
+        ),
+        'Psr\\Container\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/psr/container/src',
+        ),
+        'PhpDocReader\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/php-di/phpdoc-reader/src/PhpDocReader',
+        ),
+        'Opis\\Closure\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/opis/closure/src',
         ),
         'League\\Plates\\' => 
         array (
@@ -57,9 +94,17 @@ class ComposerStaticInitb97d957ad4b57f38bf5e6f21fbefc062
         array (
             0 => __DIR__ . '/..' . '/kint-php/kint/src',
         ),
+        'Invoker\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/php-di/invoker/src',
+        ),
         'FastRoute\\' => 
         array (
             0 => __DIR__ . '/..' . '/nikic/fast-route/src',
+        ),
+        'Faker\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/fzaninotto/faker/src/Faker',
         ),
         'Delight\\Http\\' => 
         array (
@@ -81,6 +126,10 @@ class ComposerStaticInitb97d957ad4b57f38bf5e6f21fbefc062
         array (
             0 => __DIR__ . '/..' . '/delight-im/auth/src',
         ),
+        'DI\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/php-di/php-di/src',
+        ),
         'Aura\\SqlQuery\\' => 
         array (
             0 => __DIR__ . '/..' . '/aura/sqlquery/src',
@@ -91,8 +140,19 @@ class ComposerStaticInitb97d957ad4b57f38bf5e6f21fbefc062
         ),
     );
 
+    public static $prefixesPsr0 = array (
+        'J' => 
+        array (
+            'JasonGrimes' => 
+            array (
+                0 => __DIR__ . '/..' . '/jasongrimes/paginator/src',
+            ),
+        ),
+    );
+
     public static $classMap = array (
         'Composer\\InstalledVersions' => __DIR__ . '/..' . '/composer/InstalledVersions.php',
+        'SimpleMail' => __DIR__ . '/..' . '/eoghanobrien/php-simple-mail/class.simple_mail.php',
     );
 
     public static function getInitializer(ClassLoader $loader)
@@ -100,6 +160,7 @@ class ComposerStaticInitb97d957ad4b57f38bf5e6f21fbefc062
         return \Closure::bind(function () use ($loader) {
             $loader->prefixLengthsPsr4 = ComposerStaticInitb97d957ad4b57f38bf5e6f21fbefc062::$prefixLengthsPsr4;
             $loader->prefixDirsPsr4 = ComposerStaticInitb97d957ad4b57f38bf5e6f21fbefc062::$prefixDirsPsr4;
+            $loader->prefixesPsr0 = ComposerStaticInitb97d957ad4b57f38bf5e6f21fbefc062::$prefixesPsr0;
             $loader->classMap = ComposerStaticInitb97d957ad4b57f38bf5e6f21fbefc062::$classMap;
 
         }, null, ClassLoader::class);
